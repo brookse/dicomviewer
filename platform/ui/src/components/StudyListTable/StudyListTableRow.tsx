@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import getGridWidthClass from '../../utils/getGridWidthClass';
 import { Icons } from '@ohif/ui-next';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import getGridWidthClass from '../../utils/getGridWidthClass';
 
 const StudyListTableRow = props => {
   const { tableData } = props;
