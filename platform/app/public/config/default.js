@@ -16,7 +16,7 @@ window.config = {
   showLoadingIndicator: true,
   experimentalStudyBrowserSort: false,
   strictZSpacingForVolumeViewport: true,
-  groupEnabledModesFirst: true,
+  groupEnabledModesFirst: false,
   allowMultiSelectExport: false,
   maxNumRequests: {
     interaction: 100,
@@ -87,7 +87,7 @@ window.config = {
       ],
     },
   ],
-  defaultDataSourceName: 'dicomweb',
+  defaultDataSourceName: 'dicomjson',
   /* Dynamic config allows user to pass "configUrl" query string this allows to load config without recompiling application. The regex will ensure valid configuration source */
   // dangerouslyUseDynamicConfig: {
   //   enabled: true,

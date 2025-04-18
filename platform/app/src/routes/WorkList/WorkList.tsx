@@ -1,39 +1,39 @@
-import React, { useState, useEffect, useMemo } from 'react';
 import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
-import moment from 'moment';
-import qs from 'query-string';
 import isEqual from 'lodash.isequal';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import qs from 'query-string';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
 //
-import filtersMeta from './filtersMeta.js';
-import { useAppConfig } from '@state';
 import { useDebounce, useSearchParams } from '@hooks';
 import { utils } from '@ohif/core';
+import { useAppConfig } from '@state';
+import filtersMeta from './filtersMeta.js';
 
 import {
-  StudyListExpandedRow,
-  EmptyStudies,
-  StudyListTable,
-  StudyListPagination,
-  StudyListFilter,
-  useSessionStorage,
-  InvestigationalUseDialog,
   Button,
   ButtonEnums,
+  EmptyStudies,
+  InvestigationalUseDialog,
+  StudyListExpandedRow,
+  StudyListFilter,
+  StudyListPagination,
+  StudyListTable,
+  useSessionStorage,
 } from '@ohif/ui';
 
 import {
+  Clipboard,
   Header,
   Icons,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  Clipboard,
-  useModal,
   Onboarding,
   ScrollArea,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  useModal,
 } from '@ohif/ui-next';
 
 import { Types } from '@ohif/ui';
@@ -367,10 +367,10 @@ function WorkList({
             seriesInStudiesMap.has(studyInstanceUid)
               ? seriesInStudiesMap.get(studyInstanceUid).map(s => {
                   return {
-                    description: s.description || '(empty)',
-                    seriesNumber: s.seriesNumber ?? '',
+                    description: s.SeriesDescription || '(empty)',
+                    seriesNumber: s.SeriesNumber ?? '',
                     modality: s.modality || '',
-                    instances: s.numSeriesInstances || '',
+                    instances: s.instances.length || '',
                   };
                 })
               : []
@@ -392,7 +392,7 @@ function WorkList({
                 })
               : appConfig.loadedModes
             ).map((mode, i) => {
-              const modalitiesToCheck = modalities.replaceAll('/', '\\');
+              const modalitiesToCheck = (modalities || '').replaceAll('/', '\\');
 
               const { valid: isValidMode, description: invalidModeDescription } = mode.isValidMode({
                 modalities: modalitiesToCheck,
