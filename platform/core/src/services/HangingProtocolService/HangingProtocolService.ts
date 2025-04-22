@@ -1,16 +1,16 @@
 import cloneDeep from 'lodash.clonedeep';
 
-import { PubSubService } from '../_shared/pubSubServiceInterface';
-import sortBy from '../../utils/sortBy';
-import ProtocolEngine from './ProtocolEngine';
-import { StudyMetadata } from '../../types/StudyMetadata';
-import DisplaySet from '../DisplaySetService/DisplaySet';
 import { CommandsManager } from '../../classes';
 import * as HangingProtocol from '../../types/HangingProtocol';
+import { StudyMetadata } from '../../types/StudyMetadata';
+import sortBy from '../../utils/sortBy';
+import uuidv4 from '../../utils/uuidv4';
+import { PubSubService } from '../_shared/pubSubServiceInterface';
+import DisplaySet from '../DisplaySetService/DisplaySet';
 import { isDisplaySetFromUrl, sopInstanceLocation } from './custom-attribute/isDisplaySetFromUrl';
 import numberOfDisplaySetsWithImages from './custom-attribute/numberOfDisplaySetsWithImages';
 import seriesDescriptionsFromDisplaySets from './custom-attribute/seriesDescriptionsFromDisplaySets';
-import uuidv4 from '../../utils/uuidv4';
+import ProtocolEngine from './ProtocolEngine';
 
 type Protocol = HangingProtocol.Protocol | HangingProtocol.ProtocolGenerator;
 
@@ -419,6 +419,7 @@ export default class HangingProtocolService extends PubSubService {
    * @param protocol is a specific protocol to apply.
    */
   public run({ studies, displaySets, activeStudy }, protocolId, options = {}) {
+    console.log('=-=-= studies:', studies, displaySets, activeStudy);
     this.studies = [...(studies || this.studies)];
     this.displaySets = displaySets;
     this.setActiveStudyUID(
@@ -1499,7 +1500,6 @@ export default class HangingProtocolService extends PubSubService {
     const matchingScores = [];
     let highestSeriesMatchingScore = 0;
 
-    console.log('ProtocolEngine::matchImages', studyMatchingRules, seriesMatchingRules);
     const matchActiveOnly = this.protocol.numberOfPriorsReferenced === -1;
     this.studies.forEach((study, studyInstanceUIDsIndex) => {
       // Skip non-active if active only
@@ -1507,6 +1507,8 @@ export default class HangingProtocolService extends PubSubService {
         return;
       }
 
+      console.log('---displaySets: ', this.displaySets);
+      console.log('---study:', study);
       const studyDisplaySets = this.displaySets.filter(
         it => it.StudyInstanceUID === study.StudyInstanceUID && !it?.unsupported
       );

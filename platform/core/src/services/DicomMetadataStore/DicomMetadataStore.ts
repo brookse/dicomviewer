@@ -58,7 +58,7 @@ function _getStudy(StudyInstanceUID) {
 }
 
 function _getSeries(StudyInstanceUID, SeriesInstanceUID) {
-  if(!StudyInstanceUID) {
+  if (!StudyInstanceUID) {
     const series = _model.studies.map(study => study.series).flat();
     return series.find(aSeries => aSeries.SeriesInstanceUID === SeriesInstanceUID);
   }
@@ -204,12 +204,14 @@ const BaseImplementation = {
     }
   },
   addSeriesMetadata(seriesSummaryMetadata, madeInClient = false) {
+    console.log('[DicomMetadataStore] addSeriesMetadata', seriesSummaryMetadata);
     if (!seriesSummaryMetadata || !seriesSummaryMetadata.length || !seriesSummaryMetadata[0]) {
       return;
     }
 
     const { StudyInstanceUID } = seriesSummaryMetadata[0];
     let study = _getStudy(StudyInstanceUID);
+    console.log('[DicomMetadataStore] _getStudy', study);
     if (!study) {
       study = createStudyMetadata(StudyInstanceUID);
       // Will typically be undefined with a compliant DICOMweb server, reset later

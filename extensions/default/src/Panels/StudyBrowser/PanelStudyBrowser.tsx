@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useImageViewer } from '@ohif/ui-next';
 import { useSystem, utils } from '@ohif/core';
+import { Separator, StudyBrowser, useImageViewer, useViewportGrid } from '@ohif/ui-next';
+import { CallbackCustomization } from 'platform/core/src/types';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useViewportGrid, StudyBrowser, Separator } from '@ohif/ui-next';
+import MoreDropdownMenu from '../../Components/MoreDropdownMenu';
 import { PanelStudyBrowserHeader } from './PanelStudyBrowserHeader';
 import { defaultActionIcons } from './constants';
-import MoreDropdownMenu from '../../Components/MoreDropdownMenu';
-import { CallbackCustomization } from 'platform/core/src/types';
 
 const { sortStudyInstances, formatDate, createStudyBrowserTabs } = utils;
 
@@ -94,7 +93,7 @@ function PanelStudyBrowser({
         isHangingProtocolLayout,
         appConfig: extensionManager._appConfig,
       };
-
+      console.log('[onDoubleClickThumbnailHandler] setupArgs:', setupArgs);
       const handlers = customHandler?.callbacks.map(callback => callback(setupArgs));
 
       for (const handler of handlers) {
@@ -136,6 +135,7 @@ function PanelStudyBrowser({
       }
 
       const mappedStudies = _mapDataSourceStudies(qidoStudiesForPatient);
+      console.log('[studyDisplayList] mapped studies:', mappedStudies);
       const actuallyMappedStudies = mappedStudies.map(qidoStudy => {
         return {
           studyInstanceUid: qidoStudy.StudyInstanceUID,
@@ -189,6 +189,7 @@ function PanelStudyBrowser({
       const newImageSrcEntry = {};
       const displaySet = displaySetService.getDisplaySetByUID(dSet.displaySetInstanceUID);
       const imageIds = dataSource.getImageIdsForDisplaySet(displaySet);
+      console.log('[currentDisplaySets] imageIds:', imageIds);
 
       const imageId = getImageIdForThumbnail(displaySet, imageIds);
 
@@ -216,6 +217,7 @@ function PanelStudyBrowser({
   // ~~ displaySets
   useEffect(() => {
     const currentDisplaySets = displaySetService.activeDisplaySets;
+    console.log('currentDisplaySets:', currentDisplaySets);
 
     if (!currentDisplaySets.length) {
       return;
@@ -347,9 +349,11 @@ function PanelStudyBrowser({
   ]);
 
   const tabs = createStudyBrowserTabs(StudyInstanceUIDs, studyDisplayList, displaySets);
+  console.log('tabsss:', tabs);
 
   // TODO: Should not fire this on "close"
   function _handleStudyClick(StudyInstanceUID) {
+    console.log('[_handleStudyClick] StudyInstanceUID:', StudyInstanceUID);
     const shouldCollapseStudy = expandedStudyInstanceUIDs.includes(StudyInstanceUID);
     const updatedExpandedStudyInstanceUIDs = shouldCollapseStudy
       ? [...expandedStudyInstanceUIDs.filter(stdyUid => stdyUid !== StudyInstanceUID)]

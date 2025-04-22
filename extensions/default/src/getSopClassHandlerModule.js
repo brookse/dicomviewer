@@ -1,7 +1,7 @@
-import { utils, classes } from '@ohif/core';
-import { id } from './id';
+import { classes, utils } from '@ohif/core';
 import getDisplaySetMessages from './getDisplaySetMessages';
 import getDisplaySetsFromUnsupportedSeries from './getDisplaySetsFromUnsupportedSeries';
+import { id } from './id';
 import { chartHandler } from './SOPClassHandlers/chartSOPClassHandler';
 
 const { isImage, sopClassDictionary, isDisplaySetReconstructable } = utils;
@@ -77,7 +77,7 @@ const makeDisplaySet = instances => {
 
   // set appropriate attributes to image set...
   const messages = getDisplaySetMessages(instances, isReconstructable, isDynamicVolume);
-
+  console.log('[imageSet.setAttributes] instance:', instance);
   imageSet.setAttributes({
     volumeLoaderSchema,
     displaySetInstanceUID: imageSet.uid, // create a local alias for the imageSet UID

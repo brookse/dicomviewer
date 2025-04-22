@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Icons } from '@ohif/ui-next';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const baseClasses =
   'first:border-0 border-t border-secondary-light cursor-pointer select-none outline-none';
@@ -39,7 +39,7 @@ const StudyItem = ({
       onClick={onClick}
       onKeyDown={onClick}
       role="button"
-      tabIndex="0"
+      tabIndex={0}
     >
       <div className="flex flex-1 flex-col px-4 pb-2">
         <div className="flex flex-row items-center justify-between pt-2 pb-2">

@@ -26,9 +26,10 @@ const compare = (a, b, defaultCompare = 0): number => {
  * if not specifically specified then at least making it consistent is useful.
  */
 const getStudiesfromDisplaySets = (displaysets): StudyMetadata[] => {
+  console.log('[getStudiesfromDisplaySets]');
   const studyMap = {};
 
-  const ret = displaySets.reduce((prev, curr) => {
+  const ret = displaysets.reduce((prev, curr) => {
     const { StudyInstanceUID } = curr;
     if (!studyMap[StudyInstanceUID]) {
       const study = DicomMetadataStore.getStudy(StudyInstanceUID);
@@ -49,17 +50,23 @@ const getStudiesfromDisplaySets = (displaysets): StudyMetadata[] => {
  * in the original order, as specified.
  */
 const getStudiesFromUIDs = (studyUids: string[]): StudyMetadata[] => {
+  console.log('[getStudiesFromUIDs] ', studyUids);
   if (!studyUids?.length) {
     return;
   }
+  console.log(
+    ' - ',
+    studyUids.map(uid => DicomMetadataStore.getStudy(uid))
+  );
   return studyUids.map(uid => DicomMetadataStore.getStudy(uid));
 };
 
 /** Gets the array of studies */
 const getStudies = (studyUids?: string[], displaySets): StudyMetadata[] => {
+  console.log('[getStudies] studyUids:', studyUids, ' | ', displaySets);
   return getStudiesFromUIDs(studyUids) || getStudiesfromDisplaySets(displaySets);
 };
 
 export default getStudies;
 
-export { getStudies, getStudiesFromUIDs, getStudiesfromDisplaySets, compare };
+export { compare, getStudies, getStudiesfromDisplaySets, getStudiesFromUIDs };

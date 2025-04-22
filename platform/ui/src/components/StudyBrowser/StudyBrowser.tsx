@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { utils } from '@ohif/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import StudyItem from '../StudyItem';
-import LegacyButtonGroup from '../LegacyButtonGroup';
-import LegacyButton from '../LegacyButton';
-import ThumbnailList from '../ThumbnailList';
 import { StringNumber } from '../../types';
+import LegacyButton from '../LegacyButton';
+import LegacyButtonGroup from '../LegacyButtonGroup';
 import StudyBrowserSort from '../StudyBrowserSort';
+import StudyItem from '../StudyItem';
+import ThumbnailList from '../ThumbnailList';
 
 const { sortStudySeries } = utils;
 
@@ -43,6 +43,7 @@ const StudyBrowser = ({
   const { experimentalStudyBrowserSort } = window.config;
   const getTabContent = () => {
     const tabData = tabs.find(tab => tab.name === activeTabName);
+    console.log('tabldata:', tabData);
     return tabData?.studies?.map(
       ({ studyInstanceUid, date, description, numInstances, modalities, displaySets }) => {
         if (!experimentalStudyBrowserSort) {
@@ -59,6 +60,7 @@ const StudyBrowser = ({
               trackedSeries={getTrackedSeries(displaySets)}
               isActive={isExpanded}
               onClick={() => {
+                console.log('onClickStudy:', studyInstanceUid);
                 onClickStudy(studyInstanceUid);
               }}
               onClickLaunch={onClickLaunch?.bind(null, studyInstanceUid)}

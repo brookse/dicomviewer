@@ -1,5 +1,4 @@
-import { DicomMetadataStore, IWebApiDataSource, utils } from '@ohif/core';
-import OHIF from '@ohif/core';
+import OHIF, { DicomMetadataStore, IWebApiDataSource, utils } from '@ohif/core';
 import dcmjs from 'dcmjs';
 
 const metadataProvider = OHIF.classes.MetadataProvider;
@@ -43,46 +42,91 @@ const customSort = (seriesA, seriesB) => {
 
 function createDicomLocalApi(dicomLocalConfig) {
   const { name } = dicomLocalConfig;
+  const studies = [];
+  let token;
 
   const implementation = {
-    initialize: ({ params, query }) => {},
+    initialize: ({ params, query }) => {
+      if (query.get('StudyInstanceUIDs') && query.get('token')) {
+        token = query.get('token');
+        console.log('got both params, fetching');
+        return fetch(
+          `https://api-dev.smartdocapp.com/v1/patient/imaging/studies/${query.get('StudyInstanceUIDs')}/ohif`,
+          {
+            headers: {
+              Authorization: `Bearer ${query.get('token')}`,
+              'Cross-Origin': '*',
+            },
+          }
+        ).then(async response => {
+          if (!response.ok) {
+            console.log(Error('Failed to fetch study metadata'));
+          }
+
+          const s = await response.json();
+          console.log('local studies:', s);
+
+          let StudyInstanceUID;
+          let SeriesInstanceUID;
+          const studyArray = [s];
+          studyArray.forEach(study => {
+            StudyInstanceUID = study.StudyInstanceUID;
+
+            study.series.forEach(series => {
+              SeriesInstanceUID = series.SeriesInstanceUID;
+
+              series.instances.forEach(instance => {
+                // Add imageId specific mapping to this data as the URL isn't necessarily WADO-URI.
+                metadataProvider.addImageIdToUIDs(instance.url, {
+                  StudyInstanceUID,
+                  SeriesInstanceUID,
+                  SOPInstanceUID: instance.SOPInstanceUID,
+                  frameNumber: 1,
+                });
+              });
+            });
+          });
+          studies.push(studyArray[0]);
+          return studies;
+        });
+      }
+    },
     query: {
       studies: {
         mapParams: () => {},
         search: params => {
-          const studyUIDs = DicomMetadataStore.getStudyInstanceUIDs();
+          // const studyUIDs = DicomMetadataStore.getStudyInstanceUIDs();
+          // return studyUIDs.map(StudyInstanceUID => {
+          let numInstances = 0;
+          const modalities = new Set();
 
-          return studyUIDs.map(StudyInstanceUID => {
-            let numInstances = 0;
-            const modalities = new Set();
-
-            // Calculating the number of instances in the study and modalities
-            // present in the study
-            const study = DicomMetadataStore.getStudy(StudyInstanceUID);
-            study.series.forEach(aSeries => {
-              numInstances += aSeries.instances.length;
-              modalities.add(aSeries.instances[0].Modality);
-            });
-
-            // first instance in the first series
-            const firstInstance = study?.series[0]?.instances[0];
-
-            if (firstInstance) {
-              return {
-                accession: firstInstance.AccessionNumber,
-                date: firstInstance.StudyDate,
-                description: firstInstance.StudyDescription,
-                mrn: firstInstance.PatientID,
-                patientName: utils.formatPN(firstInstance.PatientName),
-                studyInstanceUid: firstInstance.StudyInstanceUID,
-                time: firstInstance.StudyTime,
-                //
-                instances: numInstances,
-                modalities: Array.from(modalities).join('/'),
-                NumInstances: numInstances,
-              };
-            }
+          // Calculating the number of instances in the study and modalities
+          // present in the study
+          const study = studies[0]; //DicomMetadataStore.getStudy(StudyInstanceUID);
+          study.series.forEach(aSeries => {
+            numInstances += aSeries.instances.length;
+            modalities.add(aSeries.instances[0].Modality);
           });
+
+          // first instance in the first series
+          const firstInstance = study?.series[0]?.instances[0];
+
+          if (firstInstance) {
+            return {
+              accession: firstInstance.AccessionNumber,
+              date: firstInstance.StudyDate,
+              description: firstInstance.StudyDescription,
+              mrn: firstInstance.PatientID,
+              patientName: utils.formatPN(firstInstance.PatientName),
+              studyInstanceUid: firstInstance.StudyInstanceUID,
+              time: firstInstance.StudyTime,
+              //
+              instances: numInstances,
+              modalities: Array.from(modalities).join('/'),
+              NumInstances: numInstances,
+            };
+          }
+          // });
         },
         processResults: () => {
           console.warn(' DICOMLocal QUERY processResults not implemented');
@@ -90,7 +134,7 @@ function createDicomLocalApi(dicomLocalConfig) {
       },
       series: {
         search: studyInstanceUID => {
-          const study = DicomMetadataStore.getStudy(studyInstanceUID);
+          const study = studies[0]; //DicomMetadataStore.getStudy(studyInstanceUID);
           return study.series.map(aSeries => {
             const firstInstance = aSeries?.instances[0];
             return {
@@ -131,7 +175,7 @@ function createDicomLocalApi(dicomLocalConfig) {
           }
 
           // Instances metadata already added via local upload
-          const study = DicomMetadataStore.getStudy(StudyInstanceUID, madeInClient);
+          const study = studies[0]; //DicomMetadataStore.getStudy(StudyInstanceUID, madeInClient);
 
           // Series metadata already added via local upload
           DicomMetadataStore._broadcastEvent(EVENTS.SERIES_ADDED, {
