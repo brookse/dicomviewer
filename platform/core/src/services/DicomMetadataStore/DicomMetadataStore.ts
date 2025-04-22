@@ -179,6 +179,7 @@ const BaseImplementation = {
       study = _model.studies[_model.studies.length - 1];
     }
 
+    console.log('[addInstances] instance:', instances[0]);
     study.addInstancesToSeries(instances);
 
     // Broadcast an event even if we used cached data.

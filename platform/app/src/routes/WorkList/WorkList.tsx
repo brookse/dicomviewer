@@ -367,10 +367,10 @@ function WorkList({
             seriesInStudiesMap.has(studyInstanceUid)
               ? seriesInStudiesMap.get(studyInstanceUid).map(s => {
                   return {
-                    description: s.SeriesDescription || '(empty)',
-                    seriesNumber: s.SeriesNumber ?? '',
+                    description: s.description || '(empty)',
+                    seriesNumber: s.seriesNumber ?? '',
                     modality: s.modality || '',
-                    instances: s.instances.length || '',
+                    instances: s.numSeriesInstances || '',
                   };
                 })
               : []
