@@ -52,7 +52,6 @@ function getDisplaySetInfo(instances) {
   } else {
     displaySetInfo = isDisplaySetReconstructable(instances, appConfig);
   }
-  console.log('reconstructable outcome: ', displaySetInfo);
 
   return {
     isDynamicVolume,
