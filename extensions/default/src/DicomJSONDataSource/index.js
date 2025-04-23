@@ -37,7 +37,8 @@ function createDicomJSONApi(dicomJsonConfig, servicesManager) {
   const { userAuthenticationService } = servicesManager.services;
   const implementation = {
     initialize: async ({ query, url }) => {
-      if (query.get('StudyInstanceUIDs') && query.get('token')) {
+      if (query.get('studyUrl') && query.get('token')) {
+        const studyUrl = query.get('studyUrl');
         token = query.get('token');
 
         userAuthenticationService.setServiceImplementation({
@@ -46,15 +47,12 @@ function createDicomJSONApi(dicomJsonConfig, servicesManager) {
           }),
         });
 
-        const response = await fetch(
-          `https://api-dev.smartdocapp.com/v1/patient/imaging/studies/${query.get('StudyInstanceUIDs')}/ohif`,
-          {
-            headers: {
-              Authorization: `Bearer ${query.get('token')}`,
-              'Cross-Origin': '*',
-            },
-          }
-        );
+        const response = await fetch(`${studyUrl}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Cross-Origin': '*',
+          },
+        });
 
         if (!response.ok) {
           // throw new Error('Failed to fetch study metadata');
