@@ -52,6 +52,7 @@ function getDisplaySetInfo(instances) {
   } else {
     displaySetInfo = isDisplaySetReconstructable(instances, appConfig);
   }
+  console.log('reconstructable outcome: ', displaySetInfo);
 
   return {
     isDynamicVolume,
@@ -77,7 +78,6 @@ const makeDisplaySet = instances => {
 
   // set appropriate attributes to image set...
   const messages = getDisplaySetMessages(instances, isReconstructable, isDynamicVolume);
-  console.log('[imageSet.setAttributes] instance:', instance);
   imageSet.setAttributes({
     volumeLoaderSchema,
     displaySetInstanceUID: imageSet.uid, // create a local alias for the imageSet UID

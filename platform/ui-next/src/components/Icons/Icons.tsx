@@ -1,166 +1,4 @@
 import React from 'react';
-import Actions from './Sources/Actions';
-import Add from './Sources/Add';
-import Cancel from './Sources/Cancel';
-import ChevronClosed from './Sources/ChevronClosed';
-import ChevronOpen from './Sources/ChevronOpen';
-import Code from './Sources/Code';
-import ColorChange from './Sources/ColorChange';
-import Controls from './Sources/Controls';
-import Copy from './Sources/Copy';
-import Delete from './Sources/Delete';
-import DicomTagBrowser from './Sources/DicomTagBrowser';
-import DisplayFillAndOutline from './Sources/DisplayFillAndOutline';
-import DisplayFillOnly from './Sources/DisplayFillOnly';
-import DisplayOutlineOnly from './Sources/DisplayOutlineOnly';
-import Download from './Sources/Download';
-import Export from './Sources/Export';
-import EyeHidden from './Sources/EyeHidden';
-import EyeVisible from './Sources/EyeVisible';
-import FeedbackComplete from './Sources/FeedbackComplete';
-import GearSettings from './Sources/GearSettings';
-import Hide from './Sources/Hide';
-import IconMPR from './Sources/IconMPR';
-import Info from './Sources/Info';
-import InfoLink from './Sources/InfoLink';
-import InfoSeries from './Sources/InfoSeries';
-import JumpToSlice from './Sources/JumpToSlice';
-import ListView from './Sources/ListView';
-import LoadingSpinner from './Sources/LoadingSpinner';
-import Lock from './Sources/Lock';
-import Minus from './Sources/Minus';
-import MissingIcon from './Sources/MissingIcon';
-import More from './Sources/More';
-import MultiplePatients from './Sources/MultiplePatients';
-import NavigationPanelReveal from './Sources/NavigationPanelReveal';
-import OHIFLogo from './Sources/OHIFLogo';
-import Patient from './Sources/Patient';
-import Pin from './Sources/Pin';
-import PinFill from './Sources/PinFill';
-import Plus from './Sources/Plus';
-import PowerOff from './Sources/PowerOff';
-import Redo from './Sources/Redo';
-import Refresh from './Sources/Refresh';
-import Rename from './Sources/Rename';
-import Series from './Sources/Series';
-import Settings from './Sources/Settings';
-import Show from './Sources/Show';
-import SidePanelCloseLeft from './Sources/SidePanelCloseLeft';
-import SidePanelCloseRight from './Sources/SidePanelCloseRight';
-import SortingAscending from './Sources/SortingAscending';
-import SocialGithub from './Sources/SocialGithub';
-import SortingDescending from './Sources/SortingDescending';
-import StatusError from './Sources/StatusError';
-import StatusSuccess from './Sources/StatusSuccess';
-import StatusTracking from './Sources/StatusTracking';
-import StatusUntracked from './Sources/StatusUntracked';
-import StatusWarning from './Sources/StatusWarning';
-import Tab4D from './Sources/Tab4D';
-import TabLinear from './Sources/TabLinear';
-import TabPatientInfo from './Sources/TabPatientInfo';
-import TabRoiThreshold from './Sources/TabRoiThreshold';
-import TabSegmentation from './Sources/TabSegmentation';
-import TabStudies from './Sources/TabStudies';
-import ThumbnailView from './Sources/ThumbnailView';
-import Trash from './Sources/Trash';
-import ViewportViews from './Sources/ViewportViews';
-import Sorting from './Sources/Sorting';
-import Upload from './Sources/Upload';
-import LaunchArrow from './Sources/LaunchArrow';
-import LaunchInfo from './Sources/LaunchInfo';
-import GroupLayers from './Sources/GroupLayers';
-import Database from './Sources/Database';
-import InvestigationalUse from './Sources/InvestigationalUse';
-import IconTransferring from './Sources/IconTransferring';
-import Alert from './Sources/Alert';
-import AlertOutline from './Sources/AlertOutline';
-import Clipboard from './Sources/Clipboard';
-import {
-  Tool3DRotate,
-  ToolAngle,
-  ToolAnnotate,
-  ToolBidirectional,
-  ToolCalibrate,
-  ToolCapture,
-  ToolCine,
-  ToolCircle,
-  ToolCobbAngle,
-  ToolCreateThreshold,
-  ToolCrosshair,
-  ToolDicomTagBrowser,
-  ToolFlipHorizontal,
-  ToolFreehandPolygon,
-  ToolFreehandRoi,
-  ToolFreehand,
-  ToolFusionColor,
-  ToolInvert,
-  ToolLayoutDefault,
-  ToolLength,
-  ToolMagneticRoi,
-  ToolMagnify,
-  ToolMeasureEllipse,
-  ToolMoreMenu,
-  ToolMove,
-  ToolPolygon,
-  ToolQuickMagnify,
-  ToolRectangle,
-  ToolReferenceLines,
-  ToolReset,
-  ToolRotateRight,
-  ToolSegBrush,
-  ToolSegEraser,
-  ToolSegShape,
-  ToolSegThreshold,
-  ToolSplineRoi,
-  ToolStackImageSync,
-  ToolStackScroll,
-  ToolToggleDicomOverlay,
-  ToolUltrasoundBidirectional,
-  ToolWindowLevel,
-  ToolWindowRegion,
-  ToolZoom,
-  ToolLayout,
-  ToolProbe,
-  ToolEraser,
-  ToolBrush,
-  ToolThreshold,
-  ToolShape,
-  ToolLabelmapAssist,
-  ToolPETSegment,
-  ToolInterpolation,
-  ToolBidirectionalSegment,
-  ToolSegmentAnything,
-  ToolContract,
-  ToolExpand,
-  ToolClickSegment,
-} from './Sources/Tools';
-import ActionNewDialog from './Sources/ActionNewDialog';
-import NotificationInfo from './Sources/NotificationInfo';
-import StatusLocked from './Sources/StatusLocked';
-import ContentPrev from './Sources/ContentPrev';
-import ContentNext from './Sources/ContentNext';
-import CheckBoxChecked from './Sources/CheckBoxChecked';
-import CheckBoxUnchecked from './Sources/CheckBoxUnChecked';
-import Close from './Sources/Close';
-import Pause from './Sources/Pause';
-import Play from './Sources/Play';
-import ViewportWindowLevel from './Sources/ViewportWindowLevel';
-import Search from './Sources/Search';
-import Clear from './Sources/Clear';
-import {
-  LayoutAdvanced3DOnly,
-  LayoutAdvanced3DPrimary,
-  LayoutAdvancedAxialPrimary,
-  LayoutAdvancedMPR,
-  LayoutCommon2x2,
-  LayoutCommon1x1,
-  LayoutCommon1x2,
-  LayoutCommon2x3,
-  LayoutAdvanced3DFourUp,
-  LayoutAdvanced3DMain,
-} from './Sources/Layout';
-import Link from './Sources/Link';
-import IconColorLUT from './Sources/IconColorLUT';
 import CTAAA from '../../../assets/images/CT-AAA.png';
 import CTAAA2 from '../../../assets/images/CT-AAA2.png';
 import CTAir from '../../../assets/images/CT-Air.png';
@@ -171,9 +9,9 @@ import CTCardiac2 from '../../../assets/images/CT-Cardiac2.png';
 import CTCardiac3 from '../../../assets/images/CT-Cardiac3.png';
 import CTChestContrastEnhanced from '../../../assets/images/CT-Chest-Contrast-Enhanced.png';
 import CTChestVessels from '../../../assets/images/CT-Chest-Vessels.png';
-import CTCoronaryArteries from '../../../assets/images/CT-Coronary-Arteries.png';
 import CTCoronaryArteries2 from '../../../assets/images/CT-Coronary-Arteries-2.png';
 import CTCoronaryArteries3 from '../../../assets/images/CT-Coronary-Arteries-3.png';
+import CTCoronaryArteries from '../../../assets/images/CT-Coronary-Arteries.png';
 import CTCroppedVolumeBone from '../../../assets/images/CT-Cropped-Volume-Bone.png';
 import CTFat from '../../../assets/images/CT-Fat.png';
 import CTLiverVasculature from '../../../assets/images/CT-Liver-Vasculature.png';
@@ -187,18 +25,181 @@ import MRAngio from '../../../assets/images/MR-Angio.png';
 import MRDefault from '../../../assets/images/MR-Default.png';
 import MRMIP from '../../../assets/images/MR-MIP.png';
 import MRT2Brain from '../../../assets/images/MR-T2-Brain.png';
+import SmartLogo from '../../../assets/images/smart_white.png';
 import VolumeRendering from '../../../assets/images/VolumeRendering.png';
-import ExternalLink from './Sources/ExternalLink';
-import OHIFLogoColorDarkBackground from './Sources/OHIFLogoColorDarkBackground';
-import Magnifier from './Sources/Magnifier';
-import LoadingOHIFMark from './Sources/LoadingOHIFMark';
+import ActionNewDialog from './Sources/ActionNewDialog';
+import Actions from './Sources/Actions';
+import Add from './Sources/Add';
+import Alert from './Sources/Alert';
+import AlertOutline from './Sources/AlertOutline';
 import ArrowLeftBold from './Sources/ArrowLeftBold';
-import Pencil from './Sources/Pencil';
-import NotificationWarning from './Sources/NotificationWarning';
 import ArrowRight from './Sources/ArrowRight';
+import Cancel from './Sources/Cancel';
+import CheckBoxChecked from './Sources/CheckBoxChecked';
+import CheckBoxUnchecked from './Sources/CheckBoxUnChecked';
+import ChevronClosed from './Sources/ChevronClosed';
 import ChevronLeft from './Sources/ChevronLeft';
+import ChevronOpen from './Sources/ChevronOpen';
+import Clear from './Sources/Clear';
+import Clipboard from './Sources/Clipboard';
+import Close from './Sources/Close';
+import Code from './Sources/Code';
+import ColorChange from './Sources/ColorChange';
+import ContentNext from './Sources/ContentNext';
+import ContentPrev from './Sources/ContentPrev';
+import Controls from './Sources/Controls';
+import Copy from './Sources/Copy';
+import Database from './Sources/Database';
+import Delete from './Sources/Delete';
+import DicomTagBrowser from './Sources/DicomTagBrowser';
+import DisplayFillAndOutline from './Sources/DisplayFillAndOutline';
+import DisplayFillOnly from './Sources/DisplayFillOnly';
+import DisplayOutlineOnly from './Sources/DisplayOutlineOnly';
+import Download from './Sources/Download';
+import Export from './Sources/Export';
+import ExternalLink from './Sources/ExternalLink';
+import EyeHidden from './Sources/EyeHidden';
+import EyeVisible from './Sources/EyeVisible';
+import FeedbackComplete from './Sources/FeedbackComplete';
+import GearSettings from './Sources/GearSettings';
+import GroupLayers from './Sources/GroupLayers';
+import Hide from './Sources/Hide';
+import IconColorLUT from './Sources/IconColorLUT';
+import IconMPR from './Sources/IconMPR';
+import IconTransferring from './Sources/IconTransferring';
+import Info from './Sources/Info';
+import InfoLink from './Sources/InfoLink';
+import InfoSeries from './Sources/InfoSeries';
+import InvestigationalUse from './Sources/InvestigationalUse';
+import JumpToSlice from './Sources/JumpToSlice';
+import LaunchArrow from './Sources/LaunchArrow';
+import LaunchInfo from './Sources/LaunchInfo';
+import {
+  LayoutAdvanced3DFourUp,
+  LayoutAdvanced3DMain,
+  LayoutAdvanced3DOnly,
+  LayoutAdvanced3DPrimary,
+  LayoutAdvancedAxialPrimary,
+  LayoutAdvancedMPR,
+  LayoutCommon1x1,
+  LayoutCommon1x2,
+  LayoutCommon2x2,
+  LayoutCommon2x3,
+} from './Sources/Layout';
+import Link from './Sources/Link';
+import ListView from './Sources/ListView';
+import LoadingOHIFMark from './Sources/LoadingOHIFMark';
+import LoadingSpinner from './Sources/LoadingSpinner';
+import Lock from './Sources/Lock';
+import Magnifier from './Sources/Magnifier';
+import Minus from './Sources/Minus';
+import MissingIcon from './Sources/MissingIcon';
+import More from './Sources/More';
+import MultiplePatients from './Sources/MultiplePatients';
+import NavigationPanelReveal from './Sources/NavigationPanelReveal';
+import NotificationInfo from './Sources/NotificationInfo';
+import NotificationWarning from './Sources/NotificationWarning';
+import OHIFLogo from './Sources/OHIFLogo';
+import OHIFLogoColorDarkBackground from './Sources/OHIFLogoColorDarkBackground';
+import Patient from './Sources/Patient';
+import Pause from './Sources/Pause';
+import Pencil from './Sources/Pencil';
+import Pin from './Sources/Pin';
+import PinFill from './Sources/PinFill';
+import Play from './Sources/Play';
+import Plus from './Sources/Plus';
+import PowerOff from './Sources/PowerOff';
+import Redo from './Sources/Redo';
+import Refresh from './Sources/Refresh';
+import Rename from './Sources/Rename';
+import Search from './Sources/Search';
+import Series from './Sources/Series';
+import Settings from './Sources/Settings';
+import Show from './Sources/Show';
+import SidePanelCloseLeft from './Sources/SidePanelCloseLeft';
+import SidePanelCloseRight from './Sources/SidePanelCloseRight';
+import SocialGithub from './Sources/SocialGithub';
+import Sorting from './Sources/Sorting';
+import SortingAscending from './Sources/SortingAscending';
+import SortingDescending from './Sources/SortingDescending';
 import StatusAlert from './Sources/StatusAlert';
+import StatusError from './Sources/StatusError';
+import StatusLocked from './Sources/StatusLocked';
+import StatusSuccess from './Sources/StatusSuccess';
+import StatusTracking from './Sources/StatusTracking';
+import StatusUntracked from './Sources/StatusUntracked';
+import StatusWarning from './Sources/StatusWarning';
+import Tab4D from './Sources/Tab4D';
+import TabLinear from './Sources/TabLinear';
+import TabPatientInfo from './Sources/TabPatientInfo';
+import TabRoiThreshold from './Sources/TabRoiThreshold';
+import TabSegmentation from './Sources/TabSegmentation';
+import TabStudies from './Sources/TabStudies';
+import ThumbnailView from './Sources/ThumbnailView';
+import {
+  Tool3DRotate,
+  ToolAngle,
+  ToolAnnotate,
+  ToolBidirectional,
+  ToolBidirectionalSegment,
+  ToolBrush,
+  ToolCalibrate,
+  ToolCapture,
+  ToolCine,
+  ToolCircle,
+  ToolClickSegment,
+  ToolCobbAngle,
+  ToolContract,
+  ToolCreateThreshold,
+  ToolCrosshair,
+  ToolDicomTagBrowser,
+  ToolEraser,
+  ToolExpand,
+  ToolFlipHorizontal,
+  ToolFreehand,
+  ToolFreehandPolygon,
+  ToolFreehandRoi,
+  ToolFusionColor,
+  ToolInterpolation,
+  ToolInvert,
+  ToolLabelmapAssist,
+  ToolLayout,
+  ToolLayoutDefault,
+  ToolLength,
+  ToolMagneticRoi,
+  ToolMagnify,
+  ToolMeasureEllipse,
+  ToolMoreMenu,
+  ToolMove,
+  ToolPETSegment,
+  ToolPolygon,
+  ToolProbe,
+  ToolQuickMagnify,
+  ToolRectangle,
+  ToolReferenceLines,
+  ToolReset,
+  ToolRotateRight,
+  ToolSegBrush,
+  ToolSegEraser,
+  ToolSegmentAnything,
+  ToolSegShape,
+  ToolSegThreshold,
+  ToolShape,
+  ToolSplineRoi,
+  ToolStackImageSync,
+  ToolStackScroll,
+  ToolThreshold,
+  ToolToggleDicomOverlay,
+  ToolUltrasoundBidirectional,
+  ToolWindowLevel,
+  ToolWindowRegion,
+  ToolZoom,
+} from './Sources/Tools';
+import Trash from './Sources/Trash';
 import Undo from './Sources/Undo';
+import Upload from './Sources/Upload';
+import ViewportViews from './Sources/ViewportViews';
+import ViewportWindowLevel from './Sources/ViewportWindowLevel';
 //
 //
 type IconProps = React.HTMLAttributes<SVGElement>;
@@ -374,6 +375,12 @@ export const Icons = {
   VolumeRendering: (props: ImageIconProps) => (
     <ImageWrapper
       src={VolumeRendering}
+      {...props}
+    />
+  ),
+  SmartLogo: (props: ImageIconProps) => (
+    <ImageWrapper
+      src={SmartLogo}
       {...props}
     />
   ),

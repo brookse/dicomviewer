@@ -1,13 +1,12 @@
-import React, { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import React, { ReactNode } from 'react';
 import {
+  Button,
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
   Icons,
-  Button,
 } from '../';
 
 import NavBar from '../NavBar';
@@ -66,8 +65,8 @@ function Header({
             data-cy="return-to-work-list"
           >
             {isReturnEnabled && <Icons.ArrowLeft className="text-primary ml-1 h-7 w-7" />}
-            <div className="ml-1">
-              {WhiteLabeling?.createLogoComponentFn?.(React, props) || <Icons.OHIFLogo />}
+            <div className="ml-1 w-20">
+              <Icons.SmartLogo />
             </div>
           </div>
         </div>

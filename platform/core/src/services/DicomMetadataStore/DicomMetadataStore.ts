@@ -179,7 +179,6 @@ const BaseImplementation = {
       study = _model.studies[_model.studies.length - 1];
     }
 
-    console.log('[addInstances] instance:', instances[0]);
     study.addInstancesToSeries(instances);
 
     // Broadcast an event even if we used cached data.
@@ -205,14 +204,12 @@ const BaseImplementation = {
     }
   },
   addSeriesMetadata(seriesSummaryMetadata, madeInClient = false) {
-    console.log('[DicomMetadataStore] addSeriesMetadata', seriesSummaryMetadata);
     if (!seriesSummaryMetadata || !seriesSummaryMetadata.length || !seriesSummaryMetadata[0]) {
       return;
     }
 
     const { StudyInstanceUID } = seriesSummaryMetadata[0];
     let study = _getStudy(StudyInstanceUID);
-    console.log('[DicomMetadataStore] _getStudy', study);
     if (!study) {
       study = createStudyMetadata(StudyInstanceUID);
       // Will typically be undefined with a compliant DICOMweb server, reset later

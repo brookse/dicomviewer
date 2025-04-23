@@ -419,7 +419,6 @@ export default class HangingProtocolService extends PubSubService {
    * @param protocol is a specific protocol to apply.
    */
   public run({ studies, displaySets, activeStudy }, protocolId, options = {}) {
-    console.log('=-=-= studies:', studies, displaySets, activeStudy);
     this.studies = [...(studies || this.studies)];
     this.displaySets = displaySets;
     this.setActiveStudyUID(
@@ -1507,8 +1506,6 @@ export default class HangingProtocolService extends PubSubService {
         return;
       }
 
-      console.log('---displaySets: ', this.displaySets);
-      console.log('---study:', study);
       const studyDisplaySets = this.displaySets.filter(
         it => it.StudyInstanceUID === study.StudyInstanceUID && !it?.unsupported
       );
@@ -1600,8 +1597,6 @@ export default class HangingProtocolService extends PubSubService {
     matchingScores.sort((a, b) => sortingFunction(a.sortingInfo, b.sortingInfo));
 
     const bestMatch = matchingScores[0];
-
-    console.log('ProtocolEngine::matchImages bestMatch', bestMatch, matchingScores);
 
     return {
       bestMatch,

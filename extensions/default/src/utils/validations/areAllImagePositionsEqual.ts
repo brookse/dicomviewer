@@ -1,6 +1,6 @@
-import { vec3 } from 'gl-matrix';
-import toNumber from '@ohif/core/src/utils/toNumber';
 import { _getPerpendicularDistance } from '@ohif/core/src/utils/isDisplaySetReconstructable';
+import toNumber from '@ohif/core/src/utils/toNumber';
+import { vec3 } from 'gl-matrix';
 import calculateScanAxisNormal from '../calculateScanAxisNormal';
 
 /**

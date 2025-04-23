@@ -135,7 +135,6 @@ function PanelStudyBrowser({
       }
 
       const mappedStudies = _mapDataSourceStudies(qidoStudiesForPatient);
-      console.log('[studyDisplayList] mapped studies:', mappedStudies);
       const actuallyMappedStudies = mappedStudies.map(qidoStudy => {
         return {
           studyInstanceUid: qidoStudy.StudyInstanceUID,
@@ -189,7 +188,6 @@ function PanelStudyBrowser({
       const newImageSrcEntry = {};
       const displaySet = displaySetService.getDisplaySetByUID(dSet.displaySetInstanceUID);
       const imageIds = dataSource.getImageIdsForDisplaySet(displaySet);
-      console.log('[currentDisplaySets] imageIds:', imageIds);
 
       const imageId = getImageIdForThumbnail(displaySet, imageIds);
 
@@ -217,7 +215,6 @@ function PanelStudyBrowser({
   // ~~ displaySets
   useEffect(() => {
     const currentDisplaySets = displaySetService.activeDisplaySets;
-    console.log('currentDisplaySets:', currentDisplaySets);
 
     if (!currentDisplaySets.length) {
       return;
@@ -349,11 +346,9 @@ function PanelStudyBrowser({
   ]);
 
   const tabs = createStudyBrowserTabs(StudyInstanceUIDs, studyDisplayList, displaySets);
-  console.log('tabsss:', tabs);
 
   // TODO: Should not fire this on "close"
   function _handleStudyClick(StudyInstanceUID) {
-    console.log('[_handleStudyClick] StudyInstanceUID:', StudyInstanceUID);
     const shouldCollapseStudy = expandedStudyInstanceUIDs.includes(StudyInstanceUID);
     const updatedExpandedStudyInstanceUIDs = shouldCollapseStudy
       ? [...expandedStudyInstanceUIDs.filter(stdyUid => stdyUid !== StudyInstanceUID)]

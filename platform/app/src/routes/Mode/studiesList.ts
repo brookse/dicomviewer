@@ -50,20 +50,14 @@ const getStudiesfromDisplaySets = (displaysets): StudyMetadata[] => {
  * in the original order, as specified.
  */
 const getStudiesFromUIDs = (studyUids: string[]): StudyMetadata[] => {
-  console.log('[getStudiesFromUIDs] ', studyUids);
   if (!studyUids?.length) {
     return;
   }
-  console.log(
-    ' - ',
-    studyUids.map(uid => DicomMetadataStore.getStudy(uid))
-  );
   return studyUids.map(uid => DicomMetadataStore.getStudy(uid));
 };
 
 /** Gets the array of studies */
 const getStudies = (studyUids?: string[], displaySets): StudyMetadata[] => {
-  console.log('[getStudies] studyUids:', studyUids, ' | ', displaySets);
   return getStudiesFromUIDs(studyUids) || getStudiesfromDisplaySets(displaySets);
 };
 

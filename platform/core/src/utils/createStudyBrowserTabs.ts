@@ -20,7 +20,6 @@ export function createStudyBrowserTabs(
   displaySets,
   recentTimeframeMS = 31536000000
 ) {
-  console.log('[createStudyBrowserTabs] displaySets:', displaySets);
   const { servicesManager } = useSystem();
   const { displaySetService } = servicesManager.services;
 
@@ -29,7 +28,6 @@ export function createStudyBrowserTabs(
   const allStudies = [];
 
   studyDisplayList.forEach(study => {
-    console.log('[createStudyBrowserTabs] study:', study);
     const displaySetsForStudy = displaySets.filter(
       ds => ds.StudyInstanceUID === study.studyInstanceUid
     );
@@ -56,7 +54,6 @@ export function createStudyBrowserTabs(
     }
     allStudies.push(tabStudy);
   });
-  console.log('[createStudyBrowserTabs] allStudies:', allStudies);
 
   const primaryStudiesTimestamps = primaryStudies
     .filter(study => study.date)

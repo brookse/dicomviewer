@@ -1,5 +1,5 @@
-import toNumber from './toNumber';
 import sortInstancesByPosition from './sortInstancesByPosition';
+import toNumber from './toNumber';
 
 // TODO: Is 10% a reasonable spacingTolerance for spacing?
 const spacingTolerance = 0.2;
@@ -36,6 +36,7 @@ export default function isDisplaySetReconstructable(instances, appConfig) {
 
   // Can't reconstruct if all instances don't have the ImagePositionPatient.
   if (!isMultiframe && !instances.every(instance => instance.ImagePositionPatient)) {
+    const m = instances.filter(instance => instance.ImagePositionPatient);
     return { value: false };
   }
 
@@ -95,6 +96,7 @@ function processMultiframe(multiFrameInstance) {
   // slice thickness isn't specified or is changing and we can't reconstruct
   // the dataset.
   if (!hasPixelMeasurements(multiFrameInstance)) {
+    console.log('No pixel measurements, not reconstructable');
     return { value: false };
   }
 
@@ -109,6 +111,7 @@ function processMultiframe(multiFrameInstance) {
   }
 
   if (multiFrameInstance.Modality.includes('NM') && !isNMReconstructable(multiFrameInstance)) {
+    console.log('NM image not reconstructable');
     return { value: false };
   }
 
@@ -135,9 +138,9 @@ function processSingleframe(instances) {
     const imageOrientationPatient = toNumber(ImageOrientationPatient);
 
     if (
-      Rows !== firstImageRows ||
-      Columns !== firstImageColumns ||
-      SamplesPerPixel !== firstImageSamplesPerPixel ||
+      toNumber(Rows) !== firstImageRows ||
+      toNumber(Columns) !== firstImageColumns ||
+      toNumber(SamplesPerPixel) !== firstImageSamplesPerPixel ||
       !_isSameOrientation(imageOrientationPatient, firstImageOrientationPatient)
     ) {
       return { value: false };
@@ -250,13 +253,13 @@ const reconstructionIssues = {
 };
 
 export {
-  hasPixelMeasurements,
+  _getPerpendicularDistance,
+  _getSpacingIssue,
+  _isSameOrientation,
+  constructableModalities,
   hasOrientation,
+  hasPixelMeasurements,
   hasPosition,
   isNMReconstructable,
-  _isSameOrientation,
-  _getSpacingIssue,
-  _getPerpendicularDistance,
   reconstructionIssues,
-  constructableModalities,
 };

@@ -65,7 +65,6 @@ export default class DisplaySetService extends PubSubService {
   }
 
   _addActiveDisplaySets(displaySets: DisplaySet[]) {
-    console.log('[_addActiveDisplaySets] :', displaySets);
     const { activeDisplaySets, activeDisplaySetsMap } = this;
 
     displaySets.forEach(displaySet => {
@@ -91,7 +90,6 @@ export default class DisplaySetService extends PubSubService {
    * rather than using the default sop class handlers to create display sets.
    */
   public addDisplaySets(...displaySets: DisplaySet[]): string[] {
-    console.log('DOsPLAY SETS:', displaySets);
     this._addDisplaySetsToCache(displaySets);
     this._addActiveDisplaySets(displaySets);
 
@@ -128,7 +126,6 @@ export default class DisplaySetService extends PubSubService {
     seriesInstanceUID: string,
     frameNumber?: number
   ): DisplaySet {
-    console.log('getDisplaySetForSOPInstanceUID: ', sopInstanceUID, seriesInstanceUID);
     const displaySets = seriesInstanceUID
       ? this.getDisplaySetsForSeries(seriesInstanceUID)
       : [...this.getDisplaySetCache().values()];
@@ -198,7 +195,6 @@ export default class DisplaySetService extends PubSubService {
    * @returns {string[]} - added displaySetInstanceUIDs
    */
   makeDisplaySets = (input, { batch = false, madeInClient = false, settings = {} } = {}) => {
-    console.log('makeDisplaySets', input);
     if (!input || !input.length) {
       throw new Error('No instances were provided.');
     }
@@ -271,7 +267,6 @@ export default class DisplaySetService extends PubSubService {
     // creating a sopClassUID list and for each sopClass associate its respective
     // instance list
     const instancesForSetSOPClasses = instancesSrc.reduce((sopClassList, instance) => {
-      console.log('makeDisplaySetForInstances', instance);
       if (!(instance.SOPClassUID in sopClassList)) {
         sopClassList[instance.SOPClassUID] = [];
       }
@@ -314,7 +309,6 @@ export default class DisplaySetService extends PubSubService {
     // so make sure it gets copied here so that they have their own ref
     let instances = [...instancesSrc];
     const instance = instances[0];
-    console.log('_makeDisplaySetForInstances', instance);
 
     const existingDisplaySets = this.getDisplaySetsForSeries(instance.SeriesInstanceUID) || [];
 

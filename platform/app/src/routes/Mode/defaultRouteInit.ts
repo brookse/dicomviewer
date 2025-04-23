@@ -32,10 +32,8 @@ export async function defaultRouteInit(
       return;
     }
 
-    console.log('[defaultRouteInit] studyInstanceUIDs:', studyInstanceUIDs, ' | ', displaySets);
     // Gets the studies list to use
     const studies = getStudies(studyInstanceUIDs, displaySets);
-    console.log('[defaultRouteInit] studies:', studies);
 
     // study being displayed, and is thus the "active" study.
     const activeStudy = studies[0];
@@ -53,7 +51,6 @@ export async function defaultRouteInit(
     DicomMetadataStore.EVENTS.INSTANCES_ADDED,
     function ({ StudyInstanceUID, SeriesInstanceUID, madeInClient = false }) {
       const seriesMetadata = DicomMetadataStore.getSeries(StudyInstanceUID, SeriesInstanceUID);
-      console.log('[defaultRouteInit] seriesMetadata:', seriesMetadata);
 
       // checks if the series filter was used, if it exists
       const seriesInstanceUIDs = filters?.seriesInstanceUID;
